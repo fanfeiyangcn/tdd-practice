@@ -7,19 +7,37 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ArgsTest {
 
-    // HAPPY
-    // TODO bool-l
     @Test
-    void should_set_flag_to_true_if_flag_present() {
+    void should_set_to_true_if_flag_present() {
         BooleanOption option = Args.parse(BooleanOption.class, "-l");
         assertTrue(option.logging);
     }
+
+    @Test
+    void should_set_to_false_if_flag_not_present() {
+        BooleanOption option = Args.parse(BooleanOption.class, "");
+        assertFalse(option.logging);
+    }
+
 
     record BooleanOption(@Option("l") boolean logging) {
 
     }
 
     // TODO int -p 8080
+    @Test
+    void should_set_int() {
+        IntOption parse = Args.parse(IntOption.class, "-d", "8080");
+        assertEquals(8080, parse.port());
+    }
+
+    record IntOption(@Option("d") int port) {
+
+    }
+
+
+
+
 
     // TODO string: -d "/usr/logs"
 
