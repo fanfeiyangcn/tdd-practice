@@ -9,6 +9,15 @@ class ArgsTest {
 
     // HAPPY
     // TODO bool-l
+    @Test
+    void should_set_flag_to_true_if_flag_present() {
+        BooleanOption option = Args.parse(BooleanOption.class, "-l");
+        assertTrue(option.logging);
+    }
+
+    record BooleanOption(@Option("l") boolean logging) {
+
+    }
 
     // TODO int -p 8080
 
@@ -29,29 +38,27 @@ class ArgsTest {
     @Disabled
     void should_example_1() {
 
-        SingleOption option = Args.parse(SingleOption.class,"-l", "-p", "8080", "-d", "/usr/logs");
+        Options option = Args.parse(Options.class,"-l", "-p", "8080", "-d", "/usr/logs");
 
         assertTrue(option.logging());
         assertEquals(8080, option.port());
         assertEquals("/usr/logs", option.dir);
     }
 
-    static record SingleOption(@Option("l") boolean logging, @Option("p") int port, @Option("d") String dir) {
-
-    }
-
 
     @Test
     @Disabled
     void should_example_2() {
-        MultiOption option = Args.parse(MultiOption.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
+        ListOptions option = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
 
         assertArrayEquals(new String[]{"this", "is", "a", "list"}, option.strings);
         assertArrayEquals(new int[]{1, 2, -3, 5}, option.integers);
     }
 
-    record MultiOption(@Option("g") String[] strings, @Option("d") int[] integers) {
+    static record Options(@Option("l") boolean logging, @Option("p") int port, @Option("d") String dir) {
 
     }
-  
+
+    record ListOptions(@Option("g") String[] strings, @Option("d") int[] integers) {
+    }
 }
