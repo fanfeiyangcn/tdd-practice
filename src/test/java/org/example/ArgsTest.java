@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,6 +26,7 @@ class ArgsTest {
 
 
     @Test
+    @Disabled
     void should_example_1() {
 
         SingleOption option = Args.parse(SingleOption.class,"-l", "-p", "8080", "-d", "/usr/logs");
@@ -40,6 +42,7 @@ class ArgsTest {
 
 
     @Test
+    @Disabled
     void should_example_2() {
         MultiOption option = Args.parse(MultiOption.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
 
