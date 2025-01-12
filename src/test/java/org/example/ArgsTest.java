@@ -24,22 +24,27 @@ class ArgsTest {
 
     }
 
-    // TODO int -p 8080
     @Test
     void should_set_int() {
-        IntOption parse = Args.parse(IntOption.class, "-d", "8080");
+        IntOption parse = Args.parse(IntOption.class, "-p", "8080");
         assertEquals(8080, parse.port());
     }
 
-    record IntOption(@Option("d") int port) {
+    record IntOption(@Option("p") int port) {
 
     }
 
 
-
-
-
     // TODO string: -d "/usr/logs"
+    @Test
+    void should_set_string() {
+        StringOption parse = Args.parse(StringOption.class, "-d","/usr/logs");
+        assertEquals("/usr/logs",parse.directory);
+    }
+
+    record StringOption(@Option("d") String directory) {
+
+    }
 
     // SAD PATH:
     // TODO -l t/ -l t f

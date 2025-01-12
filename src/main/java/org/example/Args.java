@@ -19,7 +19,12 @@ public class Args {
                 int idx = arguments.indexOf("-" + option.value());
                 String s = arguments.get(idx + 1);
                 return (T) constructor.newInstance(Integer.valueOf(s));
-            } else {
+            } if (type.equals(String.class)){
+                int idx = arguments.indexOf("-" + option.value());
+                String s = arguments.get(idx + 1);
+                return (T) constructor.newInstance(String.valueOf(s));
+
+            }else {
                 boolean contains = arguments.contains("-" + option.value());
                 return (T) constructor.newInstance(contains);
             }
